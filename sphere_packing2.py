@@ -26,7 +26,7 @@ for i in range(n):
         #print("%i, %i: dist= >= %f" % (i, j, r[i] + r[j]))
 d = cvx.multiply(cvx.bmat(dists), intens)
 #prob = cvx.Problem(cvx.Minimize(cvx.norm(cvx.abs(d), 1)), constr)  # Minimize the greatest distance from the origin
-prob = cvx.Problem(cvx.Minimize(cvx.multiply(cvx.norm(cvx.abs(d), 1), len(dists) * len(dists))), constr)  # Minimize the greatest distance from the origin
+prob = cvx.Problem(cvx.Minimize(cvx.multiply(cvx.norm(cvx.abs(d), 1), 1 / (len(dists) * len(dists)))), constr)  # Minimize the greatest distance from the origin
 prob.solve(method="dccp", solver="ECOS", ep=1e-2, max_slack=1e-2)
 #print(d.value)
 
@@ -48,8 +48,8 @@ for i in range(n):
     ax.plot_surface(
         c[i, 0].value + r[i] * np.cos(u) * np.sin(v), c[i, 1].value + r[i] * np.sin(u) * np.sin(v), c[i, 2].value + r[i] * np.cos(v), color=colors
     )
-def rotate(angle):
-    ax.view_init(azim=angle)
-rot_animation = animation.FuncAnimation(fig, rotate, frames=np.arange(0,362,2),interval=100)
-rot_animation.save('./rotation2.gif', dpi=80, writer='imagemagick')
+# def rotate(angle):
+#     ax.view_init(azim=angle)
+# rot_animation = animation.FuncAnimation(fig, rotate, frames=np.arange(0,362,2),interval=100)
+# rot_animation.save('./rotation2.gif', dpi=80, writer='imagemagick')
 plt.show()

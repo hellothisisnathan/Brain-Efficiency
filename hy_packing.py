@@ -6,6 +6,7 @@ import dccp
 import pandas as pd
 from itertools import product
 
+# Seed so results are reproducible
 np.random.seed(0)
 
 df = pd.read_csv('../edge_withDistancesAndRadii.csv')  # Edge list with distances and r1+r2 columns
@@ -22,6 +23,7 @@ Iij = np.zeros((n,n))  # Intensity matrix
 
 ids = [0 for x in range(n)]  # List to lookup ids later
 
+# Create distance, r1+r2, intensity matrices
 for i1 in range(n):
     for i2 in range(n):
         if i1 == i2: continue
@@ -47,8 +49,8 @@ for node in ids:
     r.append(rdf.loc[rdf['ID'] == node]['Radius (mm)'].iloc[0])
 
 c = cvx.Variable((n, 3))  # c is [n] sets of 3D coordinates
-dists = [[0 for x in range(n)] for y in range(n)]
-constr = []
+dists = [[0 for x in range(n)] for y in range(n)]  # Generate 26x26 array to hold variable calculations for distance constraints
+constr = []  # Constraints list
 for i in range(n):
     for j in range(n):
         if i == j:
@@ -58,15 +60,19 @@ for i in range(n):
         # The distance between 2 spheres (represented as 3D coords) must be greater than the radii of the two spheres combined
         constr.append(dists[i][j] >= r[i] + r[j])
         #print("%i, %i: dist= >= %f" % (i, j, r[i] + r[j]))
+
+# Define the function we want to optimize
 d = cvx.multiply(cvx.bmat(dists), Iij)
 
 #################################################################################
 # Problem solver - takes a long time!
-# prob = cvx.Problem(cvx.Minimize(cvx.multiply(cvx.norm(cvx.abs(d), 1), n * n)), constr)  # Minimize the greatest distance from the origin
+# prob = cvx.Problem(cvx.Minimize(cvx.multiply(cvx.norm(cvx.abs(d), 1), 1 / (n * n))), constr)  # Minimize the greatest distance from the origin
 # prob.solve(method="dccp", solver="ECOS", ep=1e-2, max_slack=1e-2)
 #################################################################################
 
 import pickle
+# with open('save_c.file', 'wb') as f:
+#     pickle.dump(c, f)
 with open('save_c.file', 'rb') as f:
     c = pickle.load(f)
 
