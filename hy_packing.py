@@ -120,28 +120,55 @@ for i in range(n):
 adj_real_dists = pd.read_csv('adjusted HY distances.csv', header=None).to_numpy()
 
 
+# Reformat data so that we drop duplicates (should be 1/2 # of points because half of distance matrix is redundant)
+print(linregress(rij.flatten(), rij_opt.flatten()))
+
+# Make list of data points from below lower diagonal of distance matrices
+trimmed_opt = rij_opt[np.tril_indices(rij_opt.shape[0], -1)]  # Non-redundant optimal solution
+trimmed_real = adj_real_dists[np.tril_indices(adj_real_dists.shape[0], -1)]  # Non-redundant real model distances
+trimmed_min = Rij[np.tril_indices(Rij.shape[0], -1)]  # Non-redundant minimum possible distances
+trimmed_true = rij[np.tril_indices(rij.shape[0], -1)]  # Non-redundant true atlas distances
+
 #
 # Graph Adjusted True HY Dist vs Optimal Dist
 #
+
 fig, ax = plt.subplots()
-ax.set_xlim(0,7)
-ax.set_ylim(0,7)
-ax.scatter(adj_real_dists.flatten(), rij_opt.flatten(), alpha=0.2)
+ax.set_xlim(-1,7)
+ax.set_ylim(-1,7)
+ax.scatter(trimmed_real, trimmed_opt, color='slateblue', alpha=0.5)
+plt.title('Adjusted HY Distances vs Optimal Solution', fontsize=18)
 plt.xlabel(r'$Distance_{ij}$ (adjusted HY)', fontsize=18)
 plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=18)
 
-plt.show()
+lr = linregress(trimmed_real, trimmed_opt)
+slope = round(lr.slope, 3)
+intercept = round(lr.intercept, 3)
+rvalue = round(lr.rvalue, 3)
+pvalue = round(lr.pvalue, 3)
+stderr = round(lr.stderr, 3)
+x = np.linspace(-10, 10, 100)
+y = slope * x + intercept
+plt.plot(x, y, 'cadetblue', alpha=1)
+plt.text(0.70, 0.8,
+    "y = " + str(slope) + "x + " + str(intercept) +
+    "\nr = " + str(rvalue) + "\np = " + str(pvalue),
+    transform=ax.transAxes)
+
+plt.show(block=False)
 
 #
 # Graph Minimum Possible Dist vs Optimal Dist
 #
 fig, ax = plt.subplots()
-# ax.set_xlim(0,6)
-# ax.set_ylim(0,6)
-ax.scatter(Rij.flatten(), rij_opt.flatten(), alpha=0.2)
-plt.xlabel(r'$Distance_{ij}$ (minimum possible distance based on model)', fontsize=18)
-plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=18)
-plt.show()
+ax.set_xlim(0,2)
+ax.set_ylim(0,3)
+ax.scatter(trimmed_min, trimmed_opt, color='firebrick', alpha=0.5)
+plt.title('Minimum Possible Model Distances vs Optimal Solution', fontsize=16)
+plt.xlabel(r'$Distance_{ij}$ (minimum possible distance based on model)', fontsize=16)
+plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=16)
+
+plt.show(block=False)
 
 #
 # Graph Unadjusted True HY Dist vs Optimal Dist
@@ -149,9 +176,25 @@ plt.show()
 fig, ax = plt.subplots()
 ax.set_xlim(-1,8)
 ax.set_ylim(-1,8)
-ax.scatter(rij.flatten(), rij_opt.flatten(), alpha=0.2)
+ax.scatter(trimmed_true, trimmed_opt, color='dodgerblue', alpha=0.5)
+plt.title('True Atlas Distances vs Optimal Solution', fontsize=18)
 plt.xlabel(r'$Distance_{ij}$ (true distance from atlas)', fontsize=18)
 plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=18)
+
+lr = linregress(trimmed_true, trimmed_opt)
+slope = round(lr.slope, 3)
+intercept = round(lr.intercept, 3)
+rvalue = round(lr.rvalue, 3)
+pvalue = round(lr.pvalue, 3)
+stderr = round(lr.stderr, 3)
+x = np.linspace(-10, 10, 100)
+y = slope * x + intercept
+plt.plot(x, y, 'palevioletred', alpha=1)
+plt.text(0.70, 0.8,
+    "y = " + str(slope) + "x + " + str(intercept) +
+    "\nr = " + str(rvalue) + "\np = " + str(pvalue),
+    transform=ax.transAxes)
+
 plt.show()
 
 #######################################################################################
@@ -190,8 +233,3 @@ print('Optimized efficiency: %0.2f vs Actual Efficiency: %0.2f' % (np.sum((Iij /
 d2 = adj_real_dists
 d2[d2 == 0] = 1e-6  # Same thing here
 print('Optimized efficiency: %0.2f vs Adjusted Actual Efficiency: %0.2f' % (np.sum((Iij / dist)), np.sum((Iij / adj_real_dists))))
-
-
-
-# TODO: Looks like there's ALMOST a correlation between optimized values and real HY dists
-# TODO: while there is a correlation between optimized values and adjusted real (blown up) HY dists
