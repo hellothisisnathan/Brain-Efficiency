@@ -1,5 +1,6 @@
 import cvxpy as cvx
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib import animation
 import dccp
@@ -51,8 +52,10 @@ Rij[Rij<1e-6] = 1e-6
 Iij = Iij / 1000  # Scale intensities to kind of match distances
 
 rad = []  # Create ordered list with radii to match the nodes in and intensities
+names = []  # Create ordered list with names to match ids
 for node in ids:
     rad.append(rdf.loc[rdf['ID'] == node]['Radius (mm)'].iloc[0])
+    names.append(rdf.loc[rdf['ID'] == node]['Name'].iloc[0])
     
 
 ##############################
@@ -91,20 +94,32 @@ else:
         pickle.dump([c, dists], f)
 
 # Plot 3D solution of optimized HY
-fig = plt.figure(figsize=(20, 20))
-ax = fig.gca(projection='3d')
-ax.set_aspect('auto')
-u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
+fig = plt.figure(figsize=(20, 10))
+# Add legend (jank)
+ax = fig.add_subplot(1,2,2)
+lines = []
 cmap = plt.cm.get_cmap('hsv', n)
+
+for i in range(n):
+    lines.append(mpl.lines.Line2D([10],[0], linestyle="none", c=cmap(i), marker = 'o'))
+ax.legend(lines, names, numpoints = 1)
+ax.axis('off')
+ax = fig.add_subplot(1, 2, 1, projection='3d')
+ax.set_aspect('auto')
+ax.set_title('Optimized Hypothalmus', fontsize=18)
+u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
 for i in range(n):
     ax.plot_surface(
         c[i, 0].value + rad[i] * np.cos(u) * np.sin(v), c[i, 1].value + rad[i] * np.sin(u) * np.sin(v), c[i, 2].value + rad[i] * np.cos(v), color=cmap(i)
     )
-# def rotate(angle):
-#     ax.view_init(azim=angle)
-# rot_animation = animation.FuncAnimation(fig, rotate, frames=np.arange(0,362,2),interval=100)
-#rot_animation.save('./opt_hy.gif', dpi=80, writer='imagemagick')
-# plt.show()
+
+
+def rotate(angle):
+    ax.view_init(azim=angle)
+rot_animation = animation.FuncAnimation(fig, rotate, frames=np.arange(0,362,2),interval=100)
+rot_animation.save('./results/animations/optimized_hy_animation.gif', dpi=160, writer='imagemagick')
+# plt.savefig('./results/optimized_hy_render.png', dpi=300)
+plt.show()
 
 # rij_opt is the calculated optimum distance
 rij_opt = np.zeros((n,n))
@@ -155,6 +170,7 @@ plt.text(0.70, 0.8,
     "\nr = " + str(rvalue) + "\np = " + str(pvalue),
     transform=ax.transAxes)
 
+# plt.savefig('./results/adjusted_vs_opt.png', dpi=300)
 plt.show(block=False)
 
 #
@@ -168,6 +184,7 @@ plt.title('Minimum Possible Model Distances vs Optimal Solution', fontsize=16)
 plt.xlabel(r'$Distance_{ij}$ (minimum possible distance based on model)', fontsize=16)
 plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=16)
 
+# plt.savefig('./results/min_vs_opt.png', dpi=300)
 plt.show(block=False)
 
 #
@@ -195,6 +212,7 @@ plt.text(0.70, 0.8,
     "\nr = " + str(rvalue) + "\np = " + str(pvalue),
     transform=ax.transAxes)
 
+# plt.savefig('./results/true_vs_opt.png', dpi=300)
 plt.show()
 
 #######################################################################################

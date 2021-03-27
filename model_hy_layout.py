@@ -1,5 +1,6 @@
 import cvxpy as cvx
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib import animation
 import dccp
@@ -45,8 +46,10 @@ Rij[Rij<1e-6] = 1e-6
 Iij = Iij / 1000  # Scale intensities to kind of match distances
 
 rad = []  # Create ordered list with radii to match the nodes in and intensities
+names = []  # Create ordered list with names to match ids
 for node in ids:
     rad.append(rdf.loc[rdf['ID'] == node]['Radius (mm)'].iloc[0])
+    names.append(rdf.loc[rdf['ID'] == node]['Name'].iloc[0])
 
 real_coords = np.array([
     [-2.46, 0.6, 5.65],
@@ -80,20 +83,25 @@ real_coords = np.array([
 # Save coords to file
 pd.DataFrame(real_coords).to_csv('true HY coordinates.csv', index=False, header=False)
 # Plot original HY
-fig = plt.figure(figsize=(20, 20))
-ax = fig.gca(projection='3d')
+fig = plt.figure(figsize=(20, 10))
+ax = fig.add_subplot(1, 2, 1, projection='3d')
 ax.set_aspect('auto')
+ax.set_title('Original HY Layout', fontsize=18)
 u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
 cmap = plt.cm.get_cmap('hsv', n)
 for i in range(n):
     ax.plot_surface(
         real_coords[i, 0] + rad[i] * np.cos(u) * np.sin(v), real_coords[i, 1] + rad[i] * np.sin(u) * np.sin(v), real_coords[i, 2] + rad[i] * np.cos(v), color=cmap(i)
     )
+ax = fig.add_subplot(1,2,2)
+# Add legend (jank)
 lines = []
-import matplotlib as mpl
 for i in range(n):
-    lines.append(mpl.lines.Line2D([0],[0], linestyle="none", c=cmap(i), marker = 'o'))
-ax.legend(lines, ids, numpoints = 1)
+    lines.append(mpl.lines.Line2D([10],[0], linestyle="none", c=cmap(i), marker = 'o'))
+ax.legend(lines, names, numpoints = 1)
+ax.axis('off')
+
+# plt.savefig('./results/original_hy_layout.png', dpi=300)
 plt.show()
 
 def overlaps(coords1, coords2, r1, r2):
@@ -128,15 +136,25 @@ for i in range(n):
 print('average nudged', np.average(new_dists - rij))
 
 # Plot HY corrected for model
-fig = plt.figure(figsize=(20, 20))
-ax = fig.gca(projection='3d')
+fig = plt.figure(figsize=(20, 10))
+ax = fig.add_subplot(1, 2, 1, projection='3d')
 ax.set_aspect('auto')
+ax.set_title('Adjusted HY Layout', fontsize=18)
 u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
 cmap = plt.cm.get_cmap('hsv', n)
 for i in range(n):
     ax.plot_surface(
         nudged_coords[i, 0] + rad[i] * np.cos(u) * np.sin(v), nudged_coords[i, 1] + rad[i] * np.sin(u) * np.sin(v), nudged_coords[i, 2] + rad[i] * np.cos(v), color=cmap(i)
     )
+ax = fig.add_subplot(1,2,2)
+# Add legend (jank)
+lines = []
+for i in range(n):
+    lines.append(mpl.lines.Line2D([10],[0], linestyle="none", c=cmap(i), marker = 'o'))
+ax.legend(lines, names, numpoints = 1)
+ax.axis('off')
+
+# plt.savefig('./results/adjusted_hy_layout.png', dpi=300)
 plt.show()
 
 pd.DataFrame(nudged_coords).to_csv('adjusted HY coordinates.csv', index=False, header=False)
