@@ -77,9 +77,29 @@ real_coords = np.array([
     [-2.46, 0.55, 5.65],
 ])
 
+# Save coords to file
+pd.DataFrame(real_coords).to_csv('true HY coordinates.csv', index=False, header=False)
+# Plot original HY
+fig = plt.figure(figsize=(20, 20))
+ax = fig.gca(projection='3d')
+ax.set_aspect('auto')
+u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
+cmap = plt.cm.get_cmap('hsv', n)
+for i in range(n):
+    ax.plot_surface(
+        real_coords[i, 0] + rad[i] * np.cos(u) * np.sin(v), real_coords[i, 1] + rad[i] * np.sin(u) * np.sin(v), real_coords[i, 2] + rad[i] * np.cos(v), color=cmap(i)
+    )
+lines = []
+import matplotlib as mpl
+for i in range(n):
+    lines.append(mpl.lines.Line2D([0],[0], linestyle="none", c=cmap(i), marker = 'o'))
+ax.legend(lines, ids, numpoints = 1)
+plt.show()
+
 def overlaps(coords1, coords2, r1, r2):
     return np.linalg.norm(coords1 - coords2) - r1 - r2 < 0
 
+nudged_coords = real_coords
 laps = True
 def check():
     laps = False
@@ -87,11 +107,11 @@ def check():
         for j in range(n):
             if i == j:
                 continue
-            if overlaps(real_coords[i], real_coords[j], rad[i], rad[j]):
+            if overlaps(nudged_coords[i], nudged_coords[j], rad[i], rad[j]):
                 laps = True
-                real_coords[i, 0] += np.random.normal(0, 0.05)
-                real_coords[i, 1] += np.random.normal(0, 0.05)
-                real_coords[i, 2] += np.random.normal(0, 0.05)
+                nudged_coords[i, 0] += np.random.normal(0, 0.05)
+                nudged_coords[i, 1] += np.random.normal(0, 0.05)
+                nudged_coords[i, 2] += np.random.normal(0, 0.05)
                 print('overlap between %i and %i' % (i,j))
     return laps
 
@@ -102,11 +122,12 @@ while laps:
 new_dists = np.zeros((n,n))
 for i in range(n):
     for j in range(n):
-        new_dists[i,j] = np.linalg.norm(real_coords[i] - real_coords[j])
-print('old dists', pd.DataFrame(rij))
-print('new dists', pd.DataFrame(new_dists))
+        new_dists[i,j] = np.linalg.norm(nudged_coords[i] - nudged_coords[j])
+# print('old dists', pd.DataFrame(rij))
+# print('new dists', pd.DataFrame(new_dists))
 print('average nudged', np.average(new_dists - rij))
 
+# Plot HY corrected for model
 fig = plt.figure(figsize=(20, 20))
 ax = fig.gca(projection='3d')
 ax.set_aspect('auto')
@@ -114,6 +135,9 @@ u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
 cmap = plt.cm.get_cmap('hsv', n)
 for i in range(n):
     ax.plot_surface(
-        real_coords[i, 0] + rad[i] * np.cos(u) * np.sin(v), real_coords[i, 1] + rad[i] * np.sin(u) * np.sin(v), real_coords[i, 2] + rad[i] * np.cos(v), color=cmap(i)
+        nudged_coords[i, 0] + rad[i] * np.cos(u) * np.sin(v), nudged_coords[i, 1] + rad[i] * np.sin(u) * np.sin(v), nudged_coords[i, 2] + rad[i] * np.cos(v), color=cmap(i)
     )
 plt.show()
+
+pd.DataFrame(nudged_coords).to_csv('adjusted HY coordinates.csv', index=False, header=False)
+pd.DataFrame(new_dists).to_csv('adjusted HY distances.csv', index=False, header=False)
