@@ -95,29 +95,27 @@ else:
 
 # Plot 3D solution of optimized HY
 fig = plt.figure(figsize=(20, 10))
-# Add legend (jank)
-ax = fig.add_subplot(1,2,2)
-lines = []
-cmap = plt.cm.get_cmap('hsv', n)
-
-for i in range(n):
-    lines.append(mpl.lines.Line2D([10],[0], linestyle="none", c=cmap(i), marker = 'o'))
-ax.legend(lines, names, numpoints = 1)
-ax.axis('off')
 ax = fig.add_subplot(1, 2, 1, projection='3d')
 ax.set_aspect('auto')
 ax.set_title('Optimized Hypothalmus', fontsize=18)
 u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
+cmap = plt.cm.get_cmap('hsv', n)
 for i in range(n):
     ax.plot_surface(
         c[i, 0].value + rad[i] * np.cos(u) * np.sin(v), c[i, 1].value + rad[i] * np.sin(u) * np.sin(v), c[i, 2].value + rad[i] * np.cos(v), color=cmap(i)
     )
 
-
-def rotate(angle):
-    ax.view_init(azim=angle)
-rot_animation = animation.FuncAnimation(fig, rotate, frames=np.arange(0,362,2),interval=100)
-rot_animation.save('./results/animations/optimized_hy_animation.gif', dpi=160, writer='imagemagick')
+# Add legend (jank)
+ax = fig.add_subplot(1,2,2)
+lines = []
+for i in range(n):
+    lines.append(mpl.lines.Line2D([10],[0], linestyle="none", c=cmap(i), marker = 'o'))
+ax.legend(lines, names, numpoints = 1)
+ax.axis('off')
+# def rotate(angle):
+#     ax.view_init(azim=angle)
+# rot_animation = animation.FuncAnimation(fig, rotate, frames=np.arange(0,362,2),interval=100)
+#rot_animation.save('./results/animations/optimized_hy_animation.gif', dpi=160, writer='imagemagick')
 # plt.savefig('./results/optimized_hy_render.png', dpi=300)
 plt.show()
 
@@ -134,10 +132,9 @@ for i in range(n):
 # Load in adjusted HY true distances
 adj_real_dists = pd.read_csv('adjusted HY distances.csv', header=None).to_numpy()
 
-
+#
 # Reformat data so that we drop duplicates (should be 1/2 # of points because half of distance matrix is redundant)
-print(linregress(rij.flatten(), rij_opt.flatten()))
-
+#
 # Make list of data points from below lower diagonal of distance matrices
 trimmed_opt = rij_opt[np.tril_indices(rij_opt.shape[0], -1)]  # Non-redundant optimal solution
 trimmed_real = adj_real_dists[np.tril_indices(adj_real_dists.shape[0], -1)]  # Non-redundant real model distances
@@ -149,8 +146,8 @@ trimmed_true = rij[np.tril_indices(rij.shape[0], -1)]  # Non-redundant true atla
 #
 
 fig, ax = plt.subplots()
-ax.set_xlim(-1,7)
-ax.set_ylim(-1,7)
+ax.set_xlim(0,7)
+ax.set_ylim(0,4)
 ax.scatter(trimmed_real, trimmed_opt, color='slateblue', alpha=0.5)
 plt.title('Adjusted HY Distances vs Optimal Solution', fontsize=18)
 plt.xlabel(r'$Distance_{ij}$ (adjusted HY)', fontsize=18)
@@ -191,8 +188,8 @@ plt.show(block=False)
 # Graph Unadjusted True HY Dist vs Optimal Dist
 #
 fig, ax = plt.subplots()
-ax.set_xlim(-1,8)
-ax.set_ylim(-1,8)
+ax.set_xlim(0,7)
+ax.set_ylim(0,4)
 ax.scatter(trimmed_true, trimmed_opt, color='dodgerblue', alpha=0.5)
 plt.title('True Atlas Distances vs Optimal Solution', fontsize=18)
 plt.xlabel(r'$Distance_{ij}$ (true distance from atlas)', fontsize=18)
@@ -240,10 +237,62 @@ for i in range (n):
         c_min_y = c[i].value[1] - rad[i]
     if c[i].value[2] - rad[i] < c_min_z:
         c_min_z = c[i].value[2] - rad[i]
-print('Brain bounded by box %0.2f x %0.2f x %0.2f ' % (abs(c_max_x - c_min_x), abs(c_max_y - c_min_y), abs(c_max_z - c_min_z)))
+print('#' * 70)
+print('Hypothalamus bounded by box %0.2f x %0.2f x %0.2f ' % (abs(c_max_x - c_min_x), abs(c_max_y - c_min_y), abs(c_max_z - c_min_z)))
 print('Vol = ', abs(c_max_x - c_min_x) * abs(c_max_y - c_min_y) * abs(c_max_z - c_min_z))
 
-# Calculate efficiency of network
+# Load in original HY coords to compare bounding box and volumes
+true_coords = pd.read_csv('true HY coordinates.csv', header=None).to_numpy()
+true_max_x = 0
+true_max_y = 0
+true_max_z = 0
+true_min_x = np.inf
+true_min_y = np.inf
+true_min_z = np.inf
+for i in range (n):
+    if true_coords[i][0] + rad[i] > true_max_x:
+        true_max_x = true_coords[i][0] + rad[i]
+    if true_coords[i][1] + rad[i] > true_max_y:
+        true_max_y = true_coords[i][1] + rad[i]
+    if true_coords[i][2] + rad[i] > true_max_z:
+        true_max_z = true_coords[i][2] + rad[i]
+    if true_coords[i][0] - rad[i] < true_min_x:
+        true_min_x = true_coords[i][0] - rad[i]
+    if true_coords[i][1] - rad[i] < true_min_y:
+        true_min_y = true_coords[i][1] - rad[i]
+    if true_coords[i][2] - rad[i] < true_min_z:
+        true_min_z = true_coords[i][2] - rad[i]
+adj_coords = pd.read_csv('adjusted HY coordinates.csv', header=None).to_numpy()
+adj_max_x = 0
+adj_max_y = 0
+adj_max_z = 0
+adj_min_x = np.inf
+adj_min_y = np.inf
+adj_min_z = np.inf
+for i in range (n):
+    if adj_coords[i][0] + rad[i] > adj_max_x:
+        adj_max_x = adj_coords[i][0] + rad[i]
+    if adj_coords[i][1] + rad[i] > adj_max_y:
+        adj_max_y = adj_coords[i][1] + rad[i]
+    if adj_coords[i][2] + rad[i] > adj_max_z:
+        adj_max_z = adj_coords[i][2] + rad[i]
+    if adj_coords[i][0] - rad[i] < adj_min_x:
+        adj_min_x = adj_coords[i][0] - rad[i]
+    if adj_coords[i][1] - rad[i] < adj_min_y:
+        adj_min_y = adj_coords[i][1] - rad[i]
+    if adj_coords[i][2] - rad[i] < adj_min_z:
+        adj_min_z = adj_coords[i][2] - rad[i]
+
+print('-' * 70)
+print('True HY bounded by box %0.2f x %0.2f x %0.2f ' % (abs(true_max_x - true_min_x), abs(true_max_y - true_min_y), abs(true_max_z - true_min_z)))
+print('True Vol = ', abs(true_max_x - true_min_x) * abs(true_max_y - true_min_y) * abs(true_max_z - true_min_z))
+print('Adjusted HY bounded by box %0.2f x %0.2f x %0.2f ' % (abs(adj_max_x - adj_min_x), abs(adj_max_y - adj_min_y), abs(adj_max_z - adj_min_z)))
+print('Adjusted Vol = ', abs(adj_max_x - adj_min_x) * abs(adj_max_y - adj_min_y) * abs(adj_max_z - adj_min_z))
+print('-' * 70)
+
+###################################
+# Calculate efficiency of network #
+###################################
 dist = rij_opt
 dist[dist == 0] = 1e-10  # Just need to set these values to something non-zero so we can divide
 Iij[Iij == 0.001] = 0  # Set self-loops back to zero so that the 1e-10 value up there doesn't matter
@@ -251,3 +300,4 @@ print('Optimized efficiency: %0.2f vs Actual Efficiency: %0.2f' % (np.sum((Iij /
 d2 = adj_real_dists
 d2[d2 == 0] = 1e-6  # Same thing here
 print('Optimized efficiency: %0.2f vs Adjusted Actual Efficiency: %0.2f' % (np.sum((Iij / dist)), np.sum((Iij / adj_real_dists))))
+print('#' * 70)
