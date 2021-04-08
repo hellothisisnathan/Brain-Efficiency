@@ -104,6 +104,15 @@ for i in range(n):
     ax.plot_surface(
         c[i, 0].value + rad[i] * np.cos(u) * np.sin(v), c[i, 1].value + rad[i] * np.sin(u) * np.sin(v), c[i, 2].value + rad[i] * np.cos(v), color=cmap(i)
     )
+ax.set_xlabel('Displacement (cm)', fontsize=16)
+ax.set_ylabel('\nDisplacement (cm)', fontsize=16)
+ax.set_zlabel('Displacement (cm)', fontsize=16)
+ax.set_xlim([-3,3])
+ax.set_ylim([-3,3])
+ax.set_zlim([-3,3])
+ax.tick_params(axis='x', labelsize=16)
+ax.tick_params(axis='y', labelsize=16)
+ax.tick_params(axis='z', labelsize=16)
 
 # Add legend (jank)
 ax = fig.add_subplot(1,2,2)
@@ -116,7 +125,7 @@ ax.axis('off')
 #     ax.view_init(azim=angle)
 # rot_animation = animation.FuncAnimation(fig, rotate, frames=np.arange(0,362,2),interval=100)
 #rot_animation.save('./results/animations/optimized_hy_animation.gif', dpi=160, writer='imagemagick')
-# plt.savefig('./results/optimized_hy_render.png', dpi=300)
+plt.savefig('./results/optimized_hy_render.png', dpi=300)
 plt.show()
 
 # rij_opt is the calculated optimum distance
@@ -147,11 +156,11 @@ trimmed_true = rij[np.tril_indices(rij.shape[0], -1)]  # Non-redundant true atla
 
 fig, ax = plt.subplots()
 ax.set_xlim(0,7)
-ax.set_ylim(0,4)
+ax.set_ylim(0,7)
 ax.scatter(trimmed_real, trimmed_opt, color='slateblue', alpha=0.5)
-plt.title('Adjusted HY Distances vs Optimal Solution', fontsize=18)
-plt.xlabel(r'$Distance_{ij}$ (adjusted HY)', fontsize=18)
-plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=18)
+plt.title('Adjusted HY Distances vs Optimal Solution', fontsize=16)
+plt.xlabel(r'$Distance_{ij}$ (adjusted HY)', fontsize=14)
+plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=14)
 
 lr = linregress(trimmed_real, trimmed_opt)
 slope = round(lr.slope, 3)
@@ -169,6 +178,7 @@ plt.text(0.70, 0.8,
 
 # plt.savefig('./results/adjusted_vs_opt.png', dpi=300)
 plt.show(block=False)
+# pd.DataFrame({'real':trimmed_real, 'opt': trimmed_opt}).to_csv('./results/csv/real_vs_opt.csv', index=False)
 
 #
 # Graph Minimum Possible Dist vs Optimal Dist
@@ -178,8 +188,8 @@ ax.set_xlim(0,2)
 ax.set_ylim(0,3)
 ax.scatter(trimmed_min, trimmed_opt, color='firebrick', alpha=0.5)
 plt.title('Minimum Possible Model Distances vs Optimal Solution', fontsize=16)
-plt.xlabel(r'$Distance_{ij}$ (minimum possible distance based on model)', fontsize=16)
-plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=16)
+plt.xlabel(r'$Distance_{ij}$ (minimum possible distance based on model)', fontsize=14)
+plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=14)
 
 # plt.savefig('./results/min_vs_opt.png', dpi=300)
 plt.show(block=False)
@@ -189,11 +199,11 @@ plt.show(block=False)
 #
 fig, ax = plt.subplots()
 ax.set_xlim(0,7)
-ax.set_ylim(0,4)
+ax.set_ylim(0,7)
 ax.scatter(trimmed_true, trimmed_opt, color='dodgerblue', alpha=0.5)
-plt.title('True Atlas Distances vs Optimal Solution', fontsize=18)
-plt.xlabel(r'$Distance_{ij}$ (true distance from atlas)', fontsize=18)
-plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=18)
+plt.title('True Atlas Distances vs Optimal Solution', fontsize=16)
+plt.xlabel(r'$Distance_{ij}$ (true distance from atlas)', fontsize=14)
+plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=14)
 
 lr = linregress(trimmed_true, trimmed_opt)
 slope = round(lr.slope, 3)
@@ -211,6 +221,7 @@ plt.text(0.70, 0.8,
 
 # plt.savefig('./results/true_vs_opt.png', dpi=300)
 plt.show()
+# pd.DataFrame({'true': trimmed_true, 'opt': trimmed_opt}).to_csv('./results/csv/true_vs_opt.csv', index=False)
 
 #######################################################################################
 # How good is our model??? Check bounding box volume and efficiency (I hope it's good)#
