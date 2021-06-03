@@ -155,5 +155,7 @@ for i in range(N):
 ax.set_xlim(-5 - max(r), 5 + max(r))
 ax.set_ylim(-5 - max(r), 5 + max(r))
 ax.set_zlim(-5 - max(r), 5 + max(r))
-plt.savefig('./results/hy_monte_carlo_efficiency_' + iterations + '_iterations_' + max_efficiency + '_' + time.strftime("%Y%m%d-%H%M%S") + '.png', dpi=300)
+
+timestamp = time.strftime('%Y%m%d-%H%M%S')
+plt.savefig(f'./results/hy_monte_carlo_efficiency_{iterations}iterations_{max_efficiency}efficiency{timestamp}.png', dpi=300)
 plt.show()
