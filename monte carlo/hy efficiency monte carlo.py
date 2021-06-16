@@ -126,20 +126,20 @@ def crude_monte_carlo(num_samples=5000):
 
         # Adjust new max_efficiency and let us know we found one
         if max_efficiency < e:
-            print(i, max_efficiency)
             max_efficiency = e
             max_x_set = ex
             max_y_set = ey
             max_z_set = ez
+            print(i, max_efficiency)
         
-        # Print out an update every 10000 if we're going for that long
-        if i % 10000 == 0:
+        # Print out an update every 500
+        if i % 500 == 0:
             print(i)
 
     # Return that biznatch
     return max_efficiency, max_x_set, max_y_set, max_z_set
 
-iterations = 10000
+iterations = 100000
 max_efficiency, x, y, z = crude_monte_carlo(iterations)
 print(max_efficiency)
 
@@ -156,6 +156,10 @@ ax.set_xlim(-5 - max(r), 5 + max(r))
 ax.set_ylim(-5 - max(r), 5 + max(r))
 ax.set_zlim(-5 - max(r), 5 + max(r))
 
+df = pd.DataFrame({'x': x, 'y': y, 'z': z})  # Create dataframe to save our endpoints
+
 timestamp = time.strftime('%Y%m%d-%H%M%S')
+
+df.to_csv(f'./results/hy_monte_carlo_efficiency_{iterations}iterations_{max_efficiency}efficiency{timestamp}.csv', index=None)
 plt.savefig(f'./results/hy_monte_carlo_efficiency_{iterations}iterations_{max_efficiency}efficiency{timestamp}.png', dpi=300)
 plt.show()
