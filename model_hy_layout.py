@@ -1,11 +1,7 @@
-import cvxpy as cvx
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib import animation
-import dccp
 import pandas as pd
-from itertools import product
 
 # Seed so results are reproducible
 np.random.seed(0)
@@ -81,7 +77,7 @@ real_coords = np.array([
 ])
 
 # Save coords to file
-pd.DataFrame(real_coords).to_csv('true HY coordinates.csv', index=False, header=False)
+# pd.DataFrame(real_coords).to_csv('true HY coordinates.csv', index=False, header=False)
 # Plot original HY
 fig = plt.figure(figsize=(20, 10))
 ax = fig.add_subplot(1, 2, 1, projection='3d')
@@ -157,5 +153,5 @@ ax.axis('off')
 # plt.savefig('./results/adjusted_hy_layout.png', dpi=300)
 plt.show()
 
-pd.DataFrame(nudged_coords).to_csv('adjusted HY coordinates.csv', index=False, header=False)
-pd.DataFrame(new_dists).to_csv('adjusted HY distances.csv', index=False, header=False)
+# pd.DataFrame(nudged_coords).to_csv('adjusted HY coordinates.csv', index=False, header=False)
+# pd.DataFrame(new_dists).to_csv('adjusted HY distances.csv', index=False, header=False)

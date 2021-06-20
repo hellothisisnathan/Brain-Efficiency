@@ -172,9 +172,9 @@ trimmed_true = rij[np.tril_indices(rij.shape[0], -1)]  # Non-redundant true atla
 
 fig, ax = plt.subplots()
 ax.set_xlim(0,7)
-ax.set_ylim(0,7)
+ax.set_ylim(0,4)
 ax.scatter(trimmed_real, trimmed_opt, color='slateblue', alpha=0.5)
-plt.title('Adjusted HY Distances vs Optimal Solution', fontsize=16)
+plt.title('Adjusted HY Distances vs Optimal Solution - No Outliers', fontsize=14)
 plt.xlabel(r'$Distance_{ij}$ (adjusted HY)', fontsize=14)
 plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=14)
 
@@ -207,7 +207,7 @@ plt.title('Minimum Possible Model Distances vs Optimal Solution', fontsize=16)
 plt.xlabel(r'$Distance_{ij}$ (minimum possible distance based on model)', fontsize=14)
 plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=14)
 
-plt.savefig('./results/min_vs_opt.png', dpi=300)
+# plt.savefig('./results/min_vs_opt.png', dpi=300)
 plt.show(block=False)
 
 #
@@ -215,9 +215,9 @@ plt.show(block=False)
 #
 fig, ax = plt.subplots()
 ax.set_xlim(0,7)
-ax.set_ylim(0,7)
+ax.set_ylim(0,4)
 ax.scatter(trimmed_true, trimmed_opt, color='dodgerblue', alpha=0.5)
-plt.title('True Atlas Distances vs Optimal Solution', fontsize=16)
+plt.title('True Atlas Distances vs Optimal Solution - No Outliers', fontsize=14)
 plt.xlabel(r'$Distance_{ij}$ (true distance from atlas)', fontsize=14)
 plt.ylabel(r'$Distance_{ij}$ ("optimal" solution)', fontsize=14)
 
