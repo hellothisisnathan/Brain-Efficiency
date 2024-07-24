@@ -1,0 +1,99 @@
+id,structure_abbrev,structure_id,structure_name,angle,coordinates_ap,coordinates_dv,coordinates_ml,registration_point,stereotaxic_injection_id
+307297141.0,VISp,385.0,Primary visual area,15.0,-4.3,0.6,3.2,Bregma,306508217.0
+307297141.0,VISp,385.0,Primary visual area,15.0,-4.3,0.35,3.2,Bregma,306508217.0
+100141454.0,MOs,993.0,Secondary motor area,0.0,2.1,0.35,0.75,Bregma,797.0
+100141454.0,MOs,993.0,Secondary motor area,0.0,2.1,0.75,0.75,Bregma,797.0
+113887162.0,VISp,385.0,Primary visual area,0.0,-3.28,0.75,2.5,Bregma,1851.0
+113887162.0,VISp,385.0,Primary visual area,0.0,-3.28,0.25,2.5,Bregma,1851.0
+112596790.0,AId,104.0,"Agranular insular area, dorsal part",0.0,1.78,2.24,2.4,Bregma,1485.0
+112596790.0,AId,104.0,"Agranular insular area, dorsal part",0.0,1.78,2.24,2.8,Bregma,1485.0
+126861679.0,VISam,394.0,Anteromedial visual area,0.0,-2.54,0.2,1.75,Bregma,112942675.0
+126861679.0,VISam,394.0,Anteromedial visual area,0.0,-2.54,0.55,1.75,Bregma,112942675.0
+146593590.0,ACAd,39.0,"Anterior cingulate area, dorsal part",0.0,0.14,0.4,0.7,Bregma,119962288.0
+146593590.0,ACAd,39.0,"Anterior cingulate area, dorsal part",0.0,0.14,0.8,0.7,Bregma,119962288.0
+307321674.0,VISp,385.0,Primary visual area,15.0,-4.5,0.6,3.2,Bregma,306508544.0
+307321674.0,VISp,385.0,Primary visual area,15.0,-4.5,0.35,3.2,Bregma,306508544.0
+113936696.0,SIM,1007.0,Simple lobule,0.0,-5.68,1.05,2.25,Bregma,1877.0
+113936696.0,SIM,1007.0,Simple lobule,0.0,-5.68,0.45,2.25,Bregma,1877.0
+304586645.0,VISp,385.0,Primary visual area,30.0,-3.4,0.35,3.1,Bregma,303983809.0
+304586645.0,VISp,385.0,Primary visual area,30.0,-3.4,0.6,3.1,Bregma,303983809.0
+307558646.0,VISp,385.0,Primary visual area,0.0,-3.8,0.35,2.9,Bregma,306509239.0
+307558646.0,VISp,385.0,Primary visual area,0.0,-3.8,0.6,2.9,Bregma,306509239.0
+112951804.0,SSp-bfd,329.0,"Primary somatosensory area, barrel field",0.0,-1.7,1.25,3.88,Bregma,1728.0
+112951804.0,SSp-bfd,329.0,"Primary somatosensory area, barrel field",0.0,-1.7,1.25,3.38,Bregma,1728.0
+307320960.0,VISp,385.0,Primary visual area,15.0,-4.5,0.6,3.2,Bregma,306508300.0
+307320960.0,VISp,385.0,Primary visual area,15.0,-4.5,0.35,3.2,Bregma,306508300.0
+180719293.0,MOs,993.0,Secondary motor area,30.0,2.1,0.4,2.4,Bregma,175366024.0
+180719293.0,MOs,993.0,Secondary motor area,30.0,2.1,1.0,2.4,Bregma,175366024.0
+126908007.0,SSp-n,353.0,"Primary somatosensory area, nose",30.0,-0.7,0.35,3.5,Bregma,112942727.0
+126908007.0,SSp-n,353.0,"Primary somatosensory area, nose",30.0,-0.7,0.75,3.5,Bregma,112942727.0
+307743253.0,VISp,385.0,Primary visual area,15.0,-3.8,0.6,3.3,Bregma,306509489.0
+307743253.0,VISp,385.0,Primary visual area,15.0,-3.8,0.35,3.3,Bregma,306509489.0
+272737914.0,AId,104.0,"Agranular insular area, dorsal part",0.0,1.1,1.9,3.25,Bregma,266984217.0
+272737914.0,AId,104.0,"Agranular insular area, dorsal part",0.0,1.1,2.35,3.0,Bregma,266984217.0
+100141796.0,VISli,312782574.0,Laterointermediate area,0.0,-4.04,0.75,4.0,Bregma,959.0
+100141796.0,VISli,312782574.0,Laterointermediate area,0.0,-4.04,0.35,4.0,Bregma,959.0
+307557934.0,VISp,385.0,Primary visual area,0.0,-3.8,60.0,2.9,Bregma,306509072.0
+307557934.0,VISp,385.0,Primary visual area,0.0,-3.8,0.35,2.9,Bregma,306509072.0
+126909424.0,MOp,985.0,Primary motor area,15.0,0.38,0.75,2.5,Bregma,112942754.0
+126909424.0,MOp,985.0,Primary motor area,15.0,0.38,0.4,2.5,Bregma,112942754.0
+309003780.0,VISp,385.0,Primary visual area,15.0,-3.9,0.6,3.2,Bregma,307844372.0
+309003780.0,VISp,385.0,Primary visual area,15.0,-3.9,0.35,3.2,Bregma,307844372.0
+112952510.0,MOs,993.0,Secondary motor area,0.0,1.7,0.4,0.9,Bregma,1706.0
+112952510.0,MOs,993.0,Secondary motor area,0.0,1.7,0.8,0.9,Bregma,1706.0
+304565427.0,VISp,385.0,Primary visual area,30.0,-4.5,0.6,3.2,Bregma,303983880.0
+304565427.0,VISp,385.0,Primary visual area,30.0,-4.5,0.35,3.2,Bregma,303983880.0
+113036264.0,CP,672.0,Caudoputamen,0.0,-0.22,1.65,3.38,Bregma,1729.0
+113036264.0,CP,672.0,Caudoputamen,0.0,-0.22,1.65,3.88,Bregma,1729.0
+114290938.0,SSp-m,345.0,"Primary somatosensory area, mouth",60.0,0.74,0.8,3.7,Bregma,1900.0
+114290938.0,SSp-m,345.0,"Primary somatosensory area, mouth",60.0,0.74,0.4,3.7,Bregma,1900.0
+112672974.0,ENTm,926.0,"Entorhinal area, medial part, dorsal zone",0.0,-4.72,2.11,3.37,Bregma,1571.0
+112672974.0,ENTm,926.0,"Entorhinal area, medial part, dorsal zone",0.0,-4.72,2.6,3.37,Bregma,1571.0
+126907302.0,SSp-bfd,329.0,"Primary somatosensory area, barrel field",30.0,-2.46,0.21,3.28,Bregma,112942711.0
+126907302.0,SSp-bfd,329.0,"Primary somatosensory area, barrel field",30.0,-2.46,0.65,3.28,Bregma,112942711.0
+307137980.0,VISp,385.0,Primary visual area,0.0,-3.95,0.6,3.0,Bregma,306506609.0
+307137980.0,VISp,385.0,Primary visual area,0.0,-3.95,0.35,3.0,Bregma,306506609.0
+304585910.0,VISp,385.0,Primary visual area,30.0,-4.3,0.6,3.2,Bregma,303983910.0
+304585910.0,VISp,385.0,Primary visual area,30.0,-4.3,0.35,3.2,Bregma,303983910.0
+309004492.0,VISp,385.0,Primary visual area,15.0,-4.0,0.35,3.4,Bregma,307844700.0
+309004492.0,VISp,385.0,Primary visual area,15.0,-4.0,0.6,3.4,Bregma,307844700.0
+112373124.0,SSp-n,353.0,"Primary somatosensory area, nose",30.0,0.26,0.75,3.5,Bregma,1356.0
+112373124.0,SSp-n,353.0,"Primary somatosensory area, nose",30.0,0.26,0.35,3.5,Bregma,1356.0
+309113907.0,VISp,385.0,Primary visual area,0.0,3.5,0.35,2.4,Bregma,308011764.0
+309113907.0,VISp,385.0,Primary visual area,0.0,3.5,0.6,2.4,Bregma,308011764.0
+307295727.0,VISl,409.0,Lateral visual area,0.0,-3.95,0.35,3.0,Bregma,306507606.0
+307295727.0,VISl,409.0,Lateral visual area,0.0,-3.95,0.6,3.0,Bregma,306507606.0
+307296433.0,VISp,385.0,Primary visual area,0.0,-4.48,0.6,2.7,Bregma,306508011.0
+307296433.0,VISp,385.0,Primary visual area,0.0,-4.48,0.35,2.7,Bregma,306508011.0
+112514915.0,SSs,378.0,Supplemental somatosensory area,0.0,-0.7,1.66,3.88,Bregma,1410.0
+112514915.0,SSs,378.0,Supplemental somatosensory area,0.0,-0.7,1.66,3.38,Bregma,1410.0
+112229814.0,SSp-ul,369.0,"Primary somatosensory area, upper limb",20.0,-0.58,0.35,2.25,Bregma,1339.0
+112229814.0,SSp-ul,369.0,"Primary somatosensory area, upper limb",20.0,-0.58,0.75,2.25,Bregma,1339.0
+112306316.0,ORBl,723.0,"Orbital area, lateral part",0.0,2.8,1.3,1.25,Bregma,1340.0
+112306316.0,ORBl,723.0,"Orbital area, lateral part",0.0,2.8,1.67,1.25,Bregma,1340.0
+100142655.0,SSp-bfd,329.0,"Primary somatosensory area, barrel field",30.0,-1.82,0.35,3.0,Bregma,1064.0
+100142655.0,SSp-bfd,329.0,"Primary somatosensory area, barrel field",30.0,-1.82,75.0,3.0,Bregma,1064.0
+112936582.0,SSp-m,345.0,"Primary somatosensory area, mouth",0.0,0.74,0.35,3.25,Bregma,1718.0
+112936582.0,SSp-m,345.0,"Primary somatosensory area, mouth",0.0,0.74,0.75,3.25,Bregma,1718.0
+307593747.0,VISp,385.0,Primary visual area,0.0,-3.8,0.6,2.5,Bregma,306509811.0
+307593747.0,VISp,385.0,Primary visual area,0.0,-3.8,0.35,2.5,Bregma,306509811.0
+100141219.0,VISp,385.0,Primary visual area,0.0,-3.8,0.75,2.5,Bregma,661.0
+100141219.0,VISp,385.0,Primary visual area,0.0,-3.8,0.35,2.5,Bregma,661.0
+304564721.0,VISp,385.0,Primary visual area,30.0,-3.6,0.35,3.3,Bregma,303983840.0
+304564721.0,VISp,385.0,Primary visual area,30.0,-3.6,0.6,3.3,Bregma,303983840.0
+304762965.0,VISp,385.0,Primary visual area,30.0,-3.8,0.35,2.9,Bregma,303983580.0
+304762965.0,VISp,385.0,Primary visual area,30.0,-3.8,0.6,2.9,Bregma,303983580.0
+100141599.0,VISam,394.0,Anteromedial visual area,0.0,-3.16,0.58,1.55,Bregma,871.0
+100141599.0,VISam,394.0,Anteromedial visual area,0.0,-3.16,0.17,1.55,Bregma,871.0
+309372716.0,VISp,385.0,Primary visual area,0.0,3.7,0.6,2.4,Bregma,308011809.0
+309372716.0,VISp,385.0,Primary visual area,0.0,3.7,0.35,2.4,Bregma,308011809.0
+100141780.0,MOp,985.0,Primary motor area,20.0,1.1,0.75,2.0,Bregma,958.0
+100141780.0,MOp,985.0,Primary motor area,20.0,1.1,0.3,2.0,Bregma,958.0
+112162251.0,SSp-n,353.0,"Primary somatosensory area, nose",30.0,-0.58,0.75,3.5,Bregma,1284.0
+112162251.0,SSp-n,353.0,"Primary somatosensory area, nose",30.0,-0.58,0.35,3.5,Bregma,1284.0
+100149969.0,SSp-m,345.0,"Primary somatosensory area, mouth",0.0,1.1,1.69,3.0,Bregma,1283.0
+100149969.0,SSp-m,345.0,"Primary somatosensory area, mouth",0.0,1.1,1.24,3.25,Bregma,1283.0
+126860974.0,ORBm,731.0,"Orbital area, medial part",0.0,2.68,1.46,0.05,Bregma,112942653.0
+126860974.0,ORBm,731.0,"Orbital area, medial part",0.0,2.68,1.46,0.45,Bregma,112942653.0
+112791318.0,SSp-ll,337.0,"Primary somatosensory area, lower limb",25.0,-1.06,0.35,2.25,Bregma,1599.0
+112791318.0,SSp-ll,337.0,"Primary somatosensory area, lower limb",25.0,-1.06,0.75,2.25,Bregma,1599.0
